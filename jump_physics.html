@@ -22,7 +22,7 @@ body {
 
 <body>
 <section id="imageLoader" class="hidden">
-  <img class="hidden" src="images/player.png" alt="player">
+  <img class="hidden" src="images/player.png" alt="player" data-name="player">
 </section>
 
 <main>
@@ -137,9 +137,9 @@ def draw():
 WIDTH = 800;
 HEIGHT = 800;
 // define a colour
-MAROON = [128, 0, 0];
+const MAROON = [128, 0, 0];
 // vertical acceleration
-GRAVITY = 0.2;
+const GRAVITY = 0.2;
 
 var platforms, player;
 
@@ -171,11 +171,11 @@ function update() {
 
   // calculate new horizontal position if
   // arrow keys are pressed
-  if (keyboard[keys.LEFT] && (player.x > 0)) {
-    player.x -= 2;
+  if (keyboard[keys.LEFT] && (player.posx > 0)) {
+    player.posx -= 2;
   }
-  if (keyboard[keys.RIGHT] && (player.x < 780)) {
-    player.x += 2;
+  if (keyboard[keys.RIGHT] && (player.posx < 780)) {
+    player.posx += 2;
   }
 
   /*
@@ -183,7 +183,7 @@ function update() {
    */
 
   // temporary variable to store new y position
-  let newy = player.y;
+  let newy = player.posy;
 
   // acceleration is rate of change of velocity
   player.y_velocity += GRAVITY;
@@ -191,7 +191,7 @@ function update() {
   newy += player.y_velocity;
 
   // create a rectangle for the new y position
-  let newplayerpositiony = new Rect([player.x, newy], [player.w, player.h]),
+  let newplayerpositiony = new Rect([player.posx, newy], [player.w, player.h]),
       y_collision = false;
 
   // check whether the new player position
@@ -208,7 +208,7 @@ function update() {
   // only allow the player to move if it
   // doesn't collide with any platforms
   else {
-    player.y = newy;
+    player.posy = newy;
   }
 
   // pressing space sets a negative vertical velocity
